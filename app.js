@@ -102,6 +102,20 @@ class LinkedList {
         }
         return true;
     }
+
+    find(value) {
+        let currentNode = this.headNode;
+        let index = 0;
+        while (currentNode.value !== value) {
+            if (currentNode.nextNode) {
+                currentNode = currentNode.nextNode;
+                index++;
+            } else {
+                return null;
+            }
+        }
+        return index;
+    }
 }
 
 class Node {
@@ -122,5 +136,4 @@ myList.prepend('Hari');
 
 
 
-console.log(myList.contains('The Mule'));
-// myList.prepend
+console.log(myList.find('Gaal'));
