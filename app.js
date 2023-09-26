@@ -1,3 +1,10 @@
+class Node {
+    constructor(value = null, nextNode = null) {
+        this.value = value;
+        this.nextNode = nextNode;
+    }
+}
+
 class LinkedList {
     constructor() {
         this.headNode = null;
@@ -116,12 +123,16 @@ class LinkedList {
         }
         return index;
     }
-}
 
-class Node {
-    constructor(value = null, nextNode = null) {
-        this.value = value;
-        this.nextNode = nextNode;
+    toString() {
+        let listString = '';
+        let currentNode = this.headNode;
+        while(currentNode) {
+            listString += `( ${currentNode.value} ) -> `;
+            currentNode = currentNode.nextNode;
+        }
+        listString += 'null';
+        return listString;
     }
 }
 
@@ -132,8 +143,10 @@ myList.prepend('Salvor');
 myList.append('Gaal');
 myList.prepend('Hari');
 //Hari, Salvor, Gaal
-// myList.pop();
 
 
 
-console.log(myList.find('Gaal'));
+
+console.log(myList.toString());
+myList.prepend('The Mule');
+console.log(myList.toString());
