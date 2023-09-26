@@ -134,6 +134,28 @@ class LinkedList {
         listString += 'null';
         return listString;
     }
+
+    insertAt(value, index) {
+        if (index < 0) throw new Error('Invalid index');
+
+        let currentNode = this.headNode;
+        if (index === 0) {
+            const newNode = new Node(value, currentNode);
+            this.headNode = newNode;
+        } else {
+            let count = 0;
+            while(count !== index - 1) {
+                if (currentNode.nextNode) {
+                    count++;
+                    currentNode = currentNode.nextNode;
+                } else {
+                    throw new Error('Unable to insert new node at given index.'); 
+                }
+            }
+            const newNode = new Node(value, currentNode.nextNode);
+            currentNode.nextNode = newNode;
+        }
+    }
 }
 
 const myList = new LinkedList();
@@ -141,12 +163,11 @@ const myList = new LinkedList();
 
 myList.prepend('Salvor');
 myList.append('Gaal');
+myList.append('The Mule');
 myList.prepend('Hari');
-//Hari, Salvor, Gaal
 
-
-
-
-console.log(myList.toString());
-myList.prepend('The Mule');
+console.log(myList.toString()); // Hari, Salvor, Gaal, The Mule, null
+// console.log(myList.size()); // 4
+// console.log(myList.head(), myList.tail()); // Hari, The Mule
+myList.insertAt('Hober Mallow', 400);
 console.log(myList.toString());
