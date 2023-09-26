@@ -156,6 +156,27 @@ class LinkedList {
             currentNode.nextNode = newNode;
         }
     }
+
+    removeAt(index) {
+        if (index < 0) throw new Error('Invalid index');
+
+        let currentNode = this.headNode;
+        if (index === 0) {
+            this.headNode = currentNode.nextNode;
+        } else {
+            let count = 0;
+            while (count !== index - 1) {
+                if (currentNode.nextNode) {
+                    count++;
+                    currentNode = currentNode.nextNode;
+                } else {
+                    throw new Error('Unable to remove node at given index.')
+                }
+            }
+            currentNode.nextNode = currentNode.nextNode?.nextNode;
+            // Not ideal. Fix this nonsense above
+        }
+    }
 }
 
 const myList = new LinkedList();
@@ -169,5 +190,5 @@ myList.prepend('Hari');
 console.log(myList.toString()); // Hari, Salvor, Gaal, The Mule, null
 // console.log(myList.size()); // 4
 // console.log(myList.head(), myList.tail()); // Hari, The Mule
-myList.insertAt('Hober Mallow', 400);
+myList.removeAt(-1);
 console.log(myList.toString());
