@@ -165,16 +165,15 @@ class LinkedList {
             this.headNode = currentNode.nextNode;
         } else {
             let count = 0;
-            while (count !== index - 1) {
-                if (currentNode.nextNode) {
-                    count++;
-                    currentNode = currentNode.nextNode;
-                } else {
-                    throw new Error('Unable to remove node at given index.')
-                }
+            while (count !== index - 1 && currentNode.nextNode) {
+                count++;
+                currentNode = currentNode.nextNode;
             }
-            currentNode.nextNode = currentNode.nextNode?.nextNode;
-            // Not ideal. Fix this nonsense above
+            if (currentNode.nextNode) {
+                currentNode.nextNode = currentNode.nextNode.nextNode;
+            } else {
+                throw new Error('Unable to remove node at given index.')
+            }
         }
     }
 }
@@ -184,11 +183,10 @@ const myList = new LinkedList();
 
 myList.prepend('Salvor');
 myList.append('Gaal');
-myList.append('The Mule');
+myList.append('Hober');
 myList.prepend('Hari');
 
-console.log(myList.toString()); // Hari, Salvor, Gaal, The Mule, null
-// console.log(myList.size()); // 4
-// console.log(myList.head(), myList.tail()); // Hari, The Mule
-myList.removeAt(-1);
-console.log(myList.toString());
+console.log(myList.toString()); // Hari, Salvor, Gaal, Hober, null
+myList.removeAt(1);
+myList.removeAt(2)
+console.log(myList.toString()); // Hari, Gaal, null 
