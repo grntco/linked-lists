@@ -76,6 +76,20 @@ class LinkedList {
             }
         }
     }
+
+    pop() {
+        if (!this.headNode) {
+            return 'List is already empty.'
+        } else {
+            let currentNode = this.headNode;
+            while (currentNode.nextNode.nextNode) {
+                currentNode = currentNode.nextNode;
+            }
+            let poppedNode = currentNode.nextNode;
+            currentNode.nextNode = null;
+            return poppedNode;
+        };
+    }
 }
 
 class Node {
@@ -92,7 +106,9 @@ myList.prepend('Salvor');
 myList.append('Gaal');
 myList.prepend('Hari');
 //Hari, Salvor, Gaal
+// myList.pop();
 
 
-console.log(myList.at(2));
+
+console.log(myList.at(0));
 // myList.prepend
