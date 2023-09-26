@@ -31,19 +31,35 @@ class LinkedList {
         if (!this.head) {
             return 0;
         } else {
-
+            let count = 1;
+            let currentNode = this.head;
+            while(currentNode.nextNode) {
+                count++;
+                currentNode = currentNode.nextNode;
+            }
+            return count;
         }
     }
 
     head() {
-        return this.allNodes[0];
+        if (!this.head) {
+            return null;
+        } else {
+            return this.head;
+        }
     }
 
     tail() {
-        return this.allNodes.find(node => node.nextNode === null);
+        if (!this.head) {
+            return null;
+        } else {
+            let currentNode = this.head;
+            while(currentNode.nextNode) {
+                currentNode = currentNode.nextNode;
+            }
+            return currentNode;
+        }
     }
-
-
 }
 
 class Node {
@@ -53,4 +69,14 @@ class Node {
     }
 }
 
-LinkedList.append(value);
+const myList = new LinkedList();
+
+
+myList.prepend('Salvor');
+myList.append('Gaal');
+myList.prepend('Hari');
+//Hari, Salvor, Gaal
+
+
+console.log(myList.tail());
+// myList.prepend
