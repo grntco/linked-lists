@@ -64,18 +64,15 @@ class LinkedList {
         } else {
             let count = 0;
             let currentNode = this.headNode;
-            while (currentNode.nextNode) {
+            while (currentNode) {
                 if (count === index) {
                     return currentNode
-                } else {
+                } else if (currentNode.nextNode) {
                     currentNode = currentNode.nextNode;
                     count++;
+                } else {
+                    return 'Node not in list';
                 }
-            }
-            if (index > count) {
-                return 'Node not in list';
-            } else {
-                return currentNode;
             }
         }
     }
