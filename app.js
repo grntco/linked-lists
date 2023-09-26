@@ -90,6 +90,18 @@ class LinkedList {
             return poppedNode;
         };
     }
+
+    contains(value) {
+        let currentNode = this.headNode;
+        while (currentNode.value !== value) {
+            if (currentNode.nextNode) {
+                currentNode = currentNode.nextNode;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 class Node {
@@ -110,5 +122,5 @@ myList.prepend('Hari');
 
 
 
-console.log(myList.at(0));
+console.log(myList.contains('The Mule'));
 // myList.prepend
