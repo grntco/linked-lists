@@ -1,14 +1,14 @@
 class LinkedList {
     constructor() {
-        this.head = null;
+        this.headNode = null;
     }
 
     append(value) {
         const newNode = new Node(value);
-        if (!this.head) {
-            this.head = newNode;
+        if (!this.headNode) {
+            this.headNode = newNode;
         } else {
-            let currentNode = this.head;
+            let currentNode = this.headNode;
             while (currentNode.nextNode) {
                 currentNode = currentNode.nextNode;
             }
@@ -18,21 +18,21 @@ class LinkedList {
 
     prepend(value) {
         const newNode = new Node(value);
-        if (!this.head) {
-            this.head = newNode;
+        if (!this.headNode) {
+            this.headNode = newNode;
         } else {
-            let currentNode = this.head;
-            this.head = newNode;
+            let currentNode = this.headNode;
+            this.headNode = newNode;
             newNode.nextNode = currentNode;
         }
     }
 
     size() {
-        if (!this.head) {
+        if (!this.headNode) {
             return 0;
         } else {
             let count = 1;
-            let currentNode = this.head;
+            let currentNode = this.headNode;
             while(currentNode.nextNode) {
                 count++;
                 currentNode = currentNode.nextNode;
@@ -42,22 +42,41 @@ class LinkedList {
     }
 
     head() {
-        if (!this.head) {
-            return null;
-        } else {
-            return this.head;
-        }
+        return this.headNode;
     }
 
     tail() {
-        if (!this.head) {
+        if (!this.headNode) {
             return null;
         } else {
-            let currentNode = this.head;
+            let currentNode = this.headNode;
             while(currentNode.nextNode) {
                 currentNode = currentNode.nextNode;
             }
             return currentNode;
+        }
+    }
+
+    at(index) {
+        if (index < 0) return 'Invalid index.';
+        if (index === 0) {
+            return this.headNode;
+        } else {
+            let count = 0;
+            let currentNode = this.headNode;
+            while (currentNode.nextNode) {
+                if (count === index) {
+                    return currentNode
+                } else {
+                    currentNode = currentNode.nextNode;
+                    count++;
+                }
+            }
+            if (index > count) {
+                return 'Node not in list';
+            } else {
+                return currentNode;
+            }
         }
     }
 }
@@ -78,5 +97,5 @@ myList.prepend('Hari');
 //Hari, Salvor, Gaal
 
 
-console.log(myList.tail());
+console.log(myList.at(2));
 // myList.prepend
