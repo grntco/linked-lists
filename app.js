@@ -25,27 +25,19 @@ class LinkedList {
 
     prepend(value) {
         const newNode = new Node(value);
-        if (!this.headNode) {
-            this.headNode = newNode;
-        } else {
-            let currentNode = this.headNode;
-            this.headNode = newNode;
-            newNode.nextNode = currentNode;
-        }
+        let tempNode = this.headNode;
+        this.headNode = newNode;
+        newNode.nextNode = tempNode;
     }
 
     size() {
-        if (!this.headNode) {
-            return 0;
-        } else {
-            let count = 1;
-            let currentNode = this.headNode;
-            while(currentNode.nextNode) {
-                count++;
-                currentNode = currentNode.nextNode;
-            }
-            return count;
+        let count = 0;
+        let currentNode = this.headNode;
+        while(currentNode) {
+            count++;
+            currentNode = currentNode.nextNode;
         }
+        return count;
     }
 
     head() {
@@ -65,63 +57,71 @@ class LinkedList {
     }
 
     at(index) {
-        if (index < 0) return 'Invalid index.';
-        if (index === 0) {
-            return this.headNode;
-        } else {
-            let count = 0;
-            let currentNode = this.headNode;
-            while (currentNode) {
-                if (count === index) {
-                    return currentNode
-                } else if (currentNode.nextNode) {
-                    currentNode = currentNode.nextNode;
-                    count++;
-                } else {
-                    return 'Node not in list';
-                }
+        if (index < 0) throw new Error('Invalid index.');
+        let count = 0;
+        let currentNode = this.headNode;
+        while (currentNode) {
+            if (count === index) {
+                return currentNode
+            } else if (currentNode.nextNode) {
+                currentNode = currentNode.nextNode;
+                count++;
+            } else {
+                throw new Error('Node not in list');
             }
         }
     }
 
     pop() {
         if (!this.headNode) {
-            return 'List is already empty.'
+            throw new Error('List is already empty.')
         } else {
             let currentNode = this.headNode;
-            while (currentNode.nextNode.nextNode) {
+            let previousNode = null;
+            while (currentNode.nextNode) {
+                previousNode = currentNode;
                 currentNode = currentNode.nextNode;
             }
-            let poppedNode = currentNode.nextNode;
-            currentNode.nextNode = null;
-            return poppedNode;
+            if (previousNode) {
+                previousNode.nextNode = null
+            } else {
+                this.headNode = null;
+            }
         };
     }
 
     contains(value) {
-        let currentNode = this.headNode;
-        while (currentNode.value !== value) {
-            if (currentNode.nextNode) {
-                currentNode = currentNode.nextNode;
-            } else {
-                return false;
+        if (!this.headNode) {
+            return false;
+        } else {
+            let currentNode = this.headNode;
+            while (currentNode.value !== value) {
+                if (currentNode.nextNode) {
+                    currentNode = currentNode.nextNode;
+                } else {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
     }
 
     find(value) {
-        let currentNode = this.headNode;
-        let index = 0;
-        while (currentNode.value !== value) {
-            if (currentNode.nextNode) {
-                currentNode = currentNode.nextNode;
-                index++;
-            } else {
-                return null;
+        if (!this.headNode) {
+            throw new Error ('The list is empty.')
+        } else {
+            let currentNode = this.headNode;
+            let index = 0;
+            while (currentNode.value !== value) {
+                if (currentNode.nextNode) {
+                    currentNode = currentNode.nextNode;
+                    index++;
+                } else {
+                    return null;
+                }
             }
+            return index;
         }
-        return index;
     }
 
     toString() {
@@ -138,11 +138,10 @@ class LinkedList {
     insertAt(value, index) {
         if (index < 0) throw new Error('Invalid index');
 
-        let currentNode = this.headNode;
         if (index === 0) {
-            const newNode = new Node(value, currentNode);
-            this.headNode = newNode;
+            this.prepend(value);
         } else {
+            let currentNode = this.headNode;
             let count = 0;
             while(count !== index - 1) {
                 if (currentNode.nextNode) {
@@ -158,6 +157,7 @@ class LinkedList {
     }
 
     removeAt(index) {
+        if (!this.headNode) throw new Error('List is already empty.')
         if (index < 0) throw new Error('Invalid index');
 
         let currentNode = this.headNode;
@@ -178,15 +178,27 @@ class LinkedList {
     }
 }
 
-const myList = new LinkedList();
 
+// "Tests" with console outputs
+
+const myList = new LinkedList();
 
 myList.prepend('Salvor');
 myList.append('Gaal');
 myList.append('Hober');
 myList.prepend('Hari');
 
-console.log(myList.toString()); // Hari, Salvor, Gaal, Hober, null
+console.log(myList.size()); // 4
+console.log(myList.tail()); // { value: 'Hober', nextNode: null }
+console.log(myList.head()); // { value: 'Hari', nextNode: Node { value: 'Salvor', nextNode: Node { value: 'Gaal', nextNode: [Node] } } }
+console.log(myList.at(2)) // { value: 'Gaal', nextNode: Node { value: 'Hober', nextNode: null } }
+myList.pop()
+
+console.log(myList.contains('Hari')); // true
+console.log(myList.contains('Hober')); // false
+console.log(myList.find('Salvor')); // 1
+console.log(myList.toString()); // ( Hari ) -> ( Salvor ) -> ( Gaal ) -> null
+
+myList.insertAt('Hober', 2);
 myList.removeAt(1);
-myList.removeAt(2)
-console.log(myList.toString()); // Hari, Gaal, null 
+console.log(myList.toString()) // ( Hari ) -> ( Hober ) -> ( Gaal ) -> null
