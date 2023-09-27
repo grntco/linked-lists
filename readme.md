@@ -17,4 +17,4 @@ The JS file includes two classes: `Node`, which is used to create the individual
 11. `insertAt(value, index)` that inserts a new node with the provided value at the given index.
 12. `removeAt(index)` that removes the node at the given index.
 
-The file also includes several informal "tests" by outputting the `LinkedList`'s method's return values to the console.
+The file also includes several informal "tests" that output the `LinkedList`'s method's return values to the console.
