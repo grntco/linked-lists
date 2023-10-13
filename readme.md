@@ -1,6 +1,6 @@
 # Linked Lists
 
-This is a project for [The Odin Project]([url](https://www.theodinproject.com/lessons/javascript-linked-lists)) to create a linked list using JavaScript.
+This is a project for [The Odin Project](https://www.theodinproject.com/lessons/javascript-linked-lists) to create a linked list using JavaScript.
 
 The JS file includes two classes: `Node`, which is used to create the individual nodes and connect them to the next node on the list, and `LinkedList`, which contains the following methods:
 
